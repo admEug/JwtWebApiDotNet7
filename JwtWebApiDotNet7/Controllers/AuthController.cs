@@ -1,17 +1,15 @@
 ﻿using JwtWebApiDotNet7.Models;
 using JwtWebApiDotNet7.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace JwtWebApiDotNet7.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -31,19 +29,16 @@ namespace JwtWebApiDotNet7.Controllers
             var userName = _userService.GetMyName();
             var roles = _userService.GetMyRoles();
 
-			return Ok(new { userName, roles });
-
 			//var userName = User?.Identity?.Name;
-
 			//var roleClaims = User?.FindAll(ClaimTypes.Role);
-
 			//var roles = roleClaims?.Select(c => c.Value).ToList();
-
 			//var roles2 = User?.Claims
 			//    .Where(c => c.Type == ClaimTypes.Role)
 			//    .Select(c => c.Value)
 			//    .ToList();
 			//return Ok(new { userName, roles, roles2 });
+
+			return Ok(new { userName, roles });			
 		}
 
         [HttpPost("register")]
