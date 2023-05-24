@@ -20,5 +20,18 @@ namespace JwtWebApiDotNet7.Services
             }
             return result;
         }
-    }
+
+		public List<string> GetMyRoles()
+		{
+			var result = new List<string>();
+
+			if (_httpContextAccessor.HttpContext is not null)
+			{
+                var roleClaims = _httpContextAccessor.HttpContext.User.FindAll(ClaimTypes.Role);
+				result = roleClaims?.Select(c => c.Value).ToList();
+			}
+
+			return result;
+		}
+	}
 }

@@ -3,5 +3,6 @@
     public interface IUserService
     {
         string GetMyName();
+        List<string> GetMyRoles();
     }
 }

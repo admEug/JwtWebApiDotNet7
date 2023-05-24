@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -27,17 +28,23 @@ namespace JwtWebApiDotNet7.Controllers
         [HttpGet, Authorize]
         public ActionResult<string> GetMyName()
         {
-            return Ok(_userService.GetMyName());
+            var userName = _userService.GetMyName();
+            var roles = _userService.GetMyRoles();
 
-            //var userName = User?.Identity?.Name;
-            //var roleClaims = User?.FindAll(ClaimTypes.Role);
-            //var roles = roleClaims?.Select(c => c.Value).ToList();
-            //var roles2 = User?.Claims
-            //    .Where(c => c.Type == ClaimTypes.Role)
-            //    .Select(c => c.Value)
-            //    .ToList();
-            //return Ok(new { userName, roles, roles2 });
-        }
+			return Ok(new { userName, roles });
+
+			//var userName = User?.Identity?.Name;
+
+			//var roleClaims = User?.FindAll(ClaimTypes.Role);
+
+			//var roles = roleClaims?.Select(c => c.Value).ToList();
+
+			//var roles2 = User?.Claims
+			//    .Where(c => c.Type == ClaimTypes.Role)
+			//    .Select(c => c.Value)
+			//    .ToList();
+			//return Ok(new { userName, roles, roles2 });
+		}
 
         [HttpPost("register")]
         public ActionResult<User> Register(UserDto request)
